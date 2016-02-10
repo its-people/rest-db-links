@@ -11,8 +11,8 @@ select *
 
 
 
-select j.*, t.*
-  from table(http_rest_response('http://192.168.56.101:8080/ords/rmougprov/tab-StockTicker/?limit=50')) t
+select  j.*, t.*
+  from table(rest_db_links.http_rest_response('http://192.168.56.101:8080/ords/rmougprov/tab-StockTicker/?limit=50')) t
      , json_table ( response, '$'
                     columns ( hasMore varchar2  path '$.hasMore'
                             , nested path '$.links[*]'

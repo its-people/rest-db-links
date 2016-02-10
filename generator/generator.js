@@ -1,80 +1,20 @@
 /*
-create or replace view StockTicker_ORDS
-as
-select symbol
-     , to_number(price, '999999999999D99999999','nls_numeric_characters=''.,''' )  price
-     , to_date(tstamp, 'YYYY-MM-DD"T"HH24:MI:SS"Z"') tstamp_json
-     , cast( to_timestamp_tz(to_char(to_date(tstamp, 'YYYY-MM-DD"T"HH24:MI:SS"Z"'), 'YYYY-MM-DD HH24:MI:SS "UTC"'), 'YYYY-MM-DD HH24:MI:SS TZR')
-             at time zone sessiontimezone as date ) tstamp
-     , selfurl
-  from table(http_rest_response('http://192.168.56.101:8080/ords/rmougprov/tab-StockTicker/')) t
-     , json_table(t.response, '$.items[*]'
-                   columns ( symbol  varchar2 path '$.symbol'
-                           , tstamp  varchar2 path '$.tstamp'
-                           , price   varchar2 path '$.price'
-                           , selfurl varchar2 path '$.links[0].href'
-                           )
-                 ) j
-  ;
+Use with SQLcl
+Generates View and Trigger for rest_db_links
+Parameter: 
+	View Name
+	ORDS Metadata URL
+	opional: Parameter for URL
 
-set define off
-create or replace trigger StockTicker_ORDS_IUD
-instead of insert or update or delete on StockTicker_ORDS
-for each row
-declare
-  c_content_type constant varchar2(256) := 'application/json';
-  l_response_body clob;
-  l_json_content varchar2(32767);
-begin
-  l_json_content := ' { "symbol": "'||:new.symbol||'"'
-                   ||', "tstamp": "'||to_char( cast (cast (:new.tstamp AS TIMESTAMP WITH TIME ZONE) at time zone 'UTC' as date) 
-                                             , 'YYYY-MM-DD"T"HH24:MI:SS"Z"')||'"'
-                   ||', "price": "' ||to_char(:new.price, '999999999999D99999999','nls_numeric_characters=''.,''' )||'"'
-                   ||'}'
-                   ;
-  if deleting 
-    then
-      lg('Deleting from view StockTicker_ORDS');
-      l_response_body := rest_db_links.http_rest_request
-                           ( :old.selfurl
-                           , 'DELETE'
-                           , '{}'
-                           , c_content_type );
-      lg('Delete from view StockTicker_ORDS responded: '||l_response_body);
-  end if;
-  if updating
-    then
-      lg('Updating view StockTicker_ORDS. json_content: '||l_json_content);
-      l_response_body := rest_db_links.http_rest_request
-                           ( :old.selfurl
-                           , 'PUT'
-                           , l_json_content
-                           , c_content_type );
-      lg('Update view StockTicker_ORDS responded: '||l_response_body);
-  end if;
-  if inserting then
-      lg('Inserting into view StockTicker_ORDS. json_content: '||l_json_content);
-      l_response_body := rest_db_links.http_rest_request
-                           ( 'http://192.168.56.101:8080/ords/rmougprov/tab-StockTicker/'
-                            ||:new.symbol
-                            ||','||to_char( cast (cast (:new.tstamp AS TIMESTAMP WITH TIME ZONE) at time zone 'UTC' as date) 
-                                             , 'YYYY-MM-DD"T"HH24:MI:SS"Z"')
-                           , 'PUT'
-                           , l_json_content
-                           , c_content_type);
-      lg('Insert view StockTicker_ORDS responded: '||l_response_body);
-  end if;
-end;
-/
-show errors
+Example:
+script generator v_stock http://192.168.56.101:8080/ords/rmougprov/metadata-catalog/tab-StockTicker/ ?limit=5 
+
 */
-
-
 template="set define off"+"\n"
 +"create or replace view %VIEWNAME%"+"\n"
 +"as"+"\n"
 +"select %VIEWCOLS%selfurl"+"\n"
-+"  from table(http_rest_response('%RESTURL%%QPARAMS%')) t"+"\n"
++"  from table(rest_db_links.http_rest_response('%RESTURL%%QPARAMS%')) t"+"\n"
 +"     , json_table(t.response, '$.items[*]'"+"\n"
 +"                   columns ( %JSONCOLS%selfurl varchar2 path '$.links[0].href'"+"\n"
 +"                           )"+"\n"

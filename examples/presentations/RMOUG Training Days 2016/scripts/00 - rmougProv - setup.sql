@@ -9,7 +9,7 @@ create table StockTicker
 /
 
 
-ALTER SESSION SET TIME_ZONE = 'MST';
+ALTER SESSION SET TIME_ZONE = 'PST';
 
 
 insert into StockTicker ( symbol, tstamp, price)

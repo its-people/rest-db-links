@@ -68,14 +68,6 @@ select symbol, count(*)
   group by grouping sets ((symbol),())
 ;
 
-
-select *
-  from StockTicker_ORDS
-where symbol='TDC'
-;
-
-
-
 truncate table logtab;
 
 select * from logtab
@@ -90,5 +82,5 @@ select * from STOCKTICKER_ORDS;
 
 update STOCKTICKER_ORDS
    set price = 5000
- where symbol ='ORCL'
-   and TSTAMP = '06.02.16 19:15:00';
+ where symbol ='RMOUG'
+;

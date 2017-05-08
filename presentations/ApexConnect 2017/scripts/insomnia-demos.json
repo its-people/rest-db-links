@@ -1,0 +1,149 @@
+{
+  "_type": "export",
+  "__export_format": 1,
+  "__export_date": "2016-12-01T00:20:06.499Z",
+  "__export_source": "insomnia.chrome.app:v2.7.0",
+  "items": [
+    {
+      "_type": "request_group",
+      "_id": "grp_1452289558149",
+      "name": "restdblinks Demo",
+      "environments": {},
+      "requests": [
+        {
+          "_type": "request",
+          "_id": "req_1452446157908",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/?offset=55&limit=100",
+          "method": "GET",
+          "body": "{\n    \"price\": 3620\n}\n",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Get StockTicker"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1452289707426",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/?offset=55&limit=100",
+          "method": "GET",
+          "body": "{}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Get restdblinks Schema Metadata"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1452289595505",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/metadata-catalog/tab-StockTicker/",
+          "method": "GET",
+          "body": "{}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Get StockTicker Metadata"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1452445624586",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/ORCL,2016-02-02T13%3A00%3A00Z",
+          "method": "PUT",
+          "body": "{\n    \"price\": 260\n}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Modify StockTicker Entry"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1452445639313",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/restdblinks,2016-01-08T21:01:55Z",
+          "method": "PUT",
+          "body": "{\n    \"price\": 50000\n}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Create StockTicker Entry"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1452446563580",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/restdblinks,2016-01-08T21%3A01%3A55Z",
+          "method": "DELETE",
+          "body": "{\n    \"symbol\": \"restdblinks\",\n    \"tstamp\": \"2016-01-08T21:01:55Z\"\n}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Delete StockTicker Entry"
+        },
+        {
+          "_type": "request",
+          "_id": "req_1455810442582",
+          "url": "http://127.0.0.1:8080/ords/restdblinksprov/tab-StockTicker/",
+          "method": "GET",
+          "body": "{\"price\": 1000}",
+          "headers": [],
+          "params": [],
+          "authentication": {
+            "_type": "basic",
+            "username": "",
+            "password": ""
+          },
+          "__insomnia": {
+            "format": "json",
+            "panel_width": 0.5
+          },
+          "name": "Demo"
+        }
+      ]
+    }
+  ]
+}
